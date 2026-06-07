@@ -1,29 +1,199 @@
 {
-
   "generatedAt": "2026-06-08T00:00:00Z",
-
   "provider": "remote-json",
-
   "source": "curated-chart-snapshot",
-
   "candidates": [
-
     {
-
-      "title": "Espresso",
-
       "artist": "Sabrina Carpenter",
-
-      "rank": 1,
-
-      "source": "remote-json",
-
       "category": "mainstream-pop",
-
-      "styles": ["pop", "disco pop"]
-
+      "rank": 1,
+      "source": "remote-json",
+      "styles": ["pop", "disco pop"],
+      "title": "Espresso"
+    },
+    {
+      "artist": "Billie Eilish",
+      "category": "mainstream-pop",
+      "rank": 2,
+      "source": "remote-json",
+      "styles": ["alt pop", "soft groove"],
+      "title": "BIRDS OF A FEATHER"
+    },
+    {
+      "artist": "Dua Lipa",
+      "category": "mainstream-pop",
+      "rank": 3,
+      "source": "remote-json",
+      "styles": ["dance pop", "club pop"],
+      "title": "Houdini"
+    },
+    {
+      "artist": "Taylor Swift",
+      "category": "mainstream-pop",
+      "rank": 4,
+      "source": "remote-json",
+      "styles": ["pop", "bright synth"],
+      "title": "Cruel Summer"
+    },
+    {
+      "artist": "Olivia Rodrigo",
+      "category": "mainstream-pop",
+      "rank": 5,
+      "source": "remote-json",
+      "styles": ["pop rock", "sharp guitar"],
+      "title": "bad idea right?"
+    },
+    {
+      "artist": "Chappell Roan",
+      "category": "mainstream-pop",
+      "rank": 6,
+      "source": "remote-json",
+      "styles": ["pop", "theatrical pop"],
+      "title": "Good Luck, Babe!"
+    },
+    {
+      "artist": "Miley Cyrus",
+      "category": "mainstream-pop",
+      "rank": 7,
+      "source": "remote-json",
+      "styles": ["pop", "soft rock"],
+      "title": "Flowers"
+    },
+    {
+      "artist": "Harry Styles",
+      "category": "mainstream-pop",
+      "rank": 8,
+      "source": "remote-json",
+      "styles": ["pop", "synth pop"],
+      "title": "As It Was"
+    },
+    {
+      "artist": "SZA",
+      "category": "mainstream-pop",
+      "rank": 9,
+      "source": "remote-json",
+      "styles": ["r&b pop", "alt pop"],
+      "title": "Kill Bill"
+    },
+    {
+      "artist": "Tate McRae",
+      "category": "mainstream-pop",
+      "rank": 10,
+      "source": "remote-json",
+      "styles": ["dance pop", "dark pop"],
+      "title": "greedy"
+    },
+    {
+      "artist": "Benson Boone",
+      "category": "mainstream-pop",
+      "rank": 11,
+      "source": "remote-json",
+      "styles": ["pop", "power ballad"],
+      "title": "Beautiful Things"
+    },
+    {
+      "artist": "Hozier",
+      "category": "mainstream-pop",
+      "rank": 12,
+      "source": "remote-json",
+      "styles": ["soul pop", "alt pop"],
+      "title": "Too Sweet"
+    },
+    {
+      "artist": "Teddy Swims",
+      "category": "mainstream-pop",
+      "rank": 13,
+      "source": "remote-json",
+      "styles": ["soul pop", "vocal pop"],
+      "title": "Lose Control"
+    },
+    {
+      "artist": "Ariana Grande",
+      "category": "mainstream-pop",
+      "rank": 14,
+      "source": "remote-json",
+      "styles": ["pop", "r&b pop"],
+      "title": "we can't be friends (wait for your love)"
+    },
+    {
+      "artist": "Post Malone",
+      "category": "mainstream-pop",
+      "rank": 15,
+      "source": "remote-json",
+      "styles": ["country pop", "pop rock"],
+      "title": "I Had Some Help"
+    },
+    {
+      "artist": "Mitski",
+      "category": "independent-alternative",
+      "rank": 16,
+      "source": "remote-json",
+      "styles": ["indie pop", "minimal"],
+      "title": "My Love Mine All Mine"
+    },
+    {
+      "artist": "Japanese Breakfast",
+      "category": "independent-alternative",
+      "rank": 17,
+      "source": "remote-json",
+      "styles": ["indie pop", "dream pop"],
+      "title": "Be Sweet"
+    },
+    {
+      "artist": "The Marías",
+      "category": "independent-alternative",
+      "rank": 18,
+      "source": "remote-json",
+      "styles": ["indie pop", "late-night groove"],
+      "title": "No One Noticed"
+    },
+    {
+      "artist": "boygenius",
+      "category": "independent-alternative",
+      "rank": 19,
+      "source": "remote-json",
+      "styles": ["indie rock", "harmony rock"],
+      "title": "Not Strong Enough"
+    },
+    {
+      "artist": "Clairo",
+      "category": "independent-alternative",
+      "rank": 20,
+      "source": "remote-json",
+      "styles": ["indie pop", "soft pop"],
+      "title": "Sexy to Someone"
+    },
+    {
+      "artist": "NewJeans",
+      "category": "japanese-korean-international",
+      "rank": 21,
+      "source": "remote-json",
+      "styles": ["k-pop", "club pop"],
+      "title": "Super Shy"
+    },
+    {
+      "artist": "LE SSERAFIM",
+      "category": "japanese-korean-international",
+      "rank": 22,
+      "source": "remote-json",
+      "styles": ["k-pop", "dance pop"],
+      "title": "EASY"
+    },
+    {
+      "artist": "YOASOBI",
+      "category": "japanese-korean-international",
+      "rank": 23,
+      "source": "remote-json",
+      "styles": ["j-pop", "anime pop"],
+      "title": "Idol"
+    },
+    {
+      "artist": "周杰伦",
+      "category": "chinese-language",
+      "rank": 24,
+      "source": "remote-json",
+      "styles": ["mandopop", "melodic pop"],
+      "title": "稻香"
     }
-
   ]
-
 }
