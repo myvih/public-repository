@@ -1,1 +1,29 @@
+{
 
+  "generatedAt": "2026-06-08T00:00:00Z",
+
+  "provider": "remote-json",
+
+  "source": "curated-chart-snapshot",
+
+  "candidates": [
+
+    {
+
+      "title": "Espresso",
+
+      "artist": "Sabrina Carpenter",
+
+      "rank": 1,
+
+      "source": "remote-json",
+
+      "category": "mainstream-pop",
+
+      "styles": ["pop", "disco pop"]
+
+    }
+
+  ]
+
+}
