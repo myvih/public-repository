@@ -4,6 +4,9 @@ const { join, resolve } = require("node:path");
 
 const ROOT = resolve(__dirname, "..");
 const MIN_CANDIDATES = 80;
+const MIN_NEW_RELEASE_CANDIDATES = 20;
+const NEW_RELEASE_MAX_AGE_DAYS = 30;
+const NEW_RELEASE_GENRES = new Set(["global-new-releases", "mandopop-new-releases"]);
 const INDEX_PATH = join(ROOT, "index.json");
 const LEGACY_SNAPSHOT_PATH = join(ROOT, "curated-chart-snapshot.json");
 
@@ -60,7 +63,43 @@ function isStringArray(value) {
   return Array.isArray(value) && value.every((item) => typeof item === "string");
 }
 
-function validateCandidate(candidate, index, genre, seen) {
+function parseIsoDateOnly(value) {
+  if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(value.trim())) {
+    return null;
+  }
+
+  const timestamp = Date.parse(`${value.trim()}T00:00:00.000Z`);
+
+  return Number.isFinite(timestamp) ? timestamp : null;
+}
+
+function failNewReleaseCandidate(candidate, genre, reason) {
+  const title = typeof candidate.title === "string" ? candidate.title : "<missing title>";
+  const artist = typeof candidate.artist === "string" ? candidate.artist : "<missing artist>";
+  const releaseDate = typeof candidate.releaseDate === "string" ? candidate.releaseDate : "<missing releaseDate>";
+
+  fail(`FAILED ${genre}: ${title} / ${artist} / ${releaseDate} / ${reason}`);
+}
+
+function validateNewReleaseCandidate(candidate, index, genre, generatedAtMs) {
+  const releaseDateMs = parseIsoDateOnly(candidate.releaseDate);
+
+  if (releaseDateMs === null) {
+    failNewReleaseCandidate(candidate, genre, `candidate ${index + 1} missing valid ISO releaseDate YYYY-MM-DD`);
+  }
+
+  if (releaseDateMs > generatedAtMs) {
+    failNewReleaseCandidate(candidate, genre, `candidate ${index + 1} releaseDate after generatedAt`);
+  }
+
+  const ageDays = (generatedAtMs - releaseDateMs) / (24 * 60 * 60 * 1000);
+
+  if (ageDays > NEW_RELEASE_MAX_AGE_DAYS) {
+    failNewReleaseCandidate(candidate, genre, `candidate ${index + 1} releaseDate outside ${NEW_RELEASE_MAX_AGE_DAYS} days`);
+  }
+}
+
+function validateCandidate(candidate, index, genre, seen, generatedAtMs) {
   if (!isRecord(candidate)) {
     fail(`${genre} candidate ${index + 1} must be an object.`);
   }
@@ -103,6 +142,14 @@ function validateCandidate(candidate, index, genre, seen) {
     });
   }
 
+  if (NEW_RELEASE_GENRES.has(genre)) {
+    validateNewReleaseCandidate(candidate, index, genre, generatedAtMs);
+
+    if (typeof candidate.sourceUrl !== "string" || !candidate.sourceUrl.trim()) {
+      failNewReleaseCandidate(candidate, genre, `candidate ${index + 1} missing sourceUrl`);
+    }
+  }
+
   const key = `${candidate.title.trim()}\u0000${candidate.artist.trim()}`.toLowerCase();
 
   if (seen.has(key)) {
@@ -137,12 +184,25 @@ function validateChart(chart, slug, expectedPath) {
     fail(`${slug} batchId is required.`);
   }
 
-  if (!Array.isArray(chart.candidates) || chart.candidates.length < MIN_CANDIDATES) {
-    fail(`${slug} candidates must include at least ${MIN_CANDIDATES}; got ${chart.candidates?.length ?? 0}.`);
+  const minCandidates = NEW_RELEASE_GENRES.has(slug) ? MIN_NEW_RELEASE_CANDIDATES : MIN_CANDIDATES;
+
+  if (!Array.isArray(chart.candidates) || chart.candidates.length < minCandidates) {
+    fail(`${slug} candidates must include at least ${minCandidates}; got ${chart.candidates?.length ?? 0}.`);
   }
 
+  if (NEW_RELEASE_GENRES.has(slug)) {
+    if (!Array.isArray(chart.sourceNotes) || !chart.sourceNotes.some((note) => typeof note === "string" && note.includes("30 days"))) {
+      fail(`${slug} sourceNotes must mention the 30 days release window.`);
+    }
+
+    if (!Array.isArray(chart.sourceNotes) || !chart.sourceNotes.some((note) => typeof note === "string" && note.toLowerCase().includes("automated"))) {
+      fail(`${slug} sourceNotes must mention automated discovery.`);
+    }
+  }
+
+  const generatedAtMs = Date.parse(chart.generatedAt);
   const seen = new Set();
-  chart.candidates.forEach((candidate, index) => validateCandidate(candidate, index, slug, seen));
+  chart.candidates.forEach((candidate, index) => validateCandidate(candidate, index, slug, seen, generatedAtMs));
 
   return {
     generatedAt: chart.generatedAt,
