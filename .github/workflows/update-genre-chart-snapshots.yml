@@ -1,0 +1,41 @@
+name: Update genre chart snapshots
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 * * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  update-genre-chart-snapshots:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Generate genre chart snapshots
+        run: node scripts/generate-genre-chart-snapshots.js
+
+      - name: Validate genre chart snapshots
+        run: node scripts/validate-genre-chart-snapshots.js
+
+      - name: Commit genre chart snapshot update
+        run: |
+          if git diff --quiet -- index.json charts curated-chart-snapshot.json; then
+            echo "No genre chart snapshot changes to commit."
+            exit 0
+          fi
+
+          generated_at=$(node -e "console.log(require('./index.json').generatedAt)")
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.json charts curated-chart-snapshot.json
+          git commit -m "Update genre chart snapshots ${generated_at}"
+          git push

@@ -1,0 +1,1 @@
+{"scripts":{"generate:genre-chart-snapshots":"node scripts/generate-genre-chart-snapshots.js","test:genre-chart-snapshots":"node scripts/validate-genre-chart-snapshots.js"},"private":true}
