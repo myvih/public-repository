@@ -1,8 +1,8 @@
 {
   "provider": "remote-json",
   "sourceType": "live-online-dynamic-index",
-  "generatedAt": "2026-06-29T14:19:41.228Z",
-  "batchId": "2026-06-29T14-19-41-228Z-genre-index-4cca7e27",
+  "generatedAt": "2026-06-29T17:48:35.676Z",
+  "batchId": "2026-06-29T17-48-35-676Z-genre-index-4596eb95",
   "sourceName": "tradio-genre-chart-index",
   "refreshCadence": "hourly",
   "sourceNotes": [
